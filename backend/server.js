@@ -40,10 +40,11 @@ app.post('/api/login', async (req, res) => {
     if (!result.success) {
       return res.status(401).json({ error: result.error });
     }
+    const isCrossOrigin = Boolean(process.env.FRONTEND_ORIGIN);
     res.cookie('token', result.token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: isCrossOrigin || process.env.NODE_ENV === 'production',
+      sameSite: isCrossOrigin ? 'none' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
       path: '/',
     });
@@ -54,7 +55,12 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.post('/api/logout', (req, res) => {
-  res.clearCookie('token', { path: '/' });
+  const isCrossOrigin = Boolean(process.env.FRONTEND_ORIGIN);
+  res.clearCookie('token', {
+    path: '/',
+    secure: isCrossOrigin || process.env.NODE_ENV === 'production',
+    sameSite: isCrossOrigin ? 'none' : 'lax',
+  });
   res.json({ message: 'Logged out' });
 });
 
