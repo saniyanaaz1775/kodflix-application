@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Backend data (optional: remove this line if you want to track data.json)
+backend/data.json
+backend/kodflix.db
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Build output
+frontend/dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
