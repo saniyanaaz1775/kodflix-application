@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import MovieDetails from './pages/MovieDetails';
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
@@ -63,6 +64,14 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/title/:imdbID"
+        element={
+          <ProtectedRoute>
+            <MovieDetails />
           </ProtectedRoute>
         }
       />
