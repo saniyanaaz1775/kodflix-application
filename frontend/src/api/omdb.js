@@ -1,4 +1,5 @@
-const OMDB_BASE = '/api/omdb';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+const OMDB_BASE = `${API_BASE}/omdb`;
 
 export async function searchMovies(query, page = 1) {
   const params = new URLSearchParams({ s: query, type: 'movie', page: String(page) });
