@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -61,14 +62,13 @@ app.get('/api/me', (req, res) => {
   res.json({ user: { id: payload.id, username: payload.username, role: payload.role } });
 });
 
-const OMDB_KEY = '15549baf';
 app.get('/api/omdb', (req, res, next) => {
   const token = req.cookies?.token;
   if (!token || !verifyToken(token)) return res.status(401).json({ Response: 'False', Error: 'Not authenticated' });
   next();
 }, async (req, res) => {
   try {
-    const params = new URLSearchParams({ ...req.query, apikey: OMDB_KEY });
+    const params = new URLSearchParams({ ...req.query, apikey: process.env.OMDB_API_KEY });
     const r = await fetch(`https://www.omdbapi.com/?${params}`);
     const data = await r.json();
     res.json(data);

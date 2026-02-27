@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import db from './db.js';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'kodflix-secret-key-change-in-production';
+const JWT_SECRET = process.env.JWT_SECRET;
 const SALT_ROUNDS = 10;
 
 export async function registerUser({ username, email, phone, password }) {
